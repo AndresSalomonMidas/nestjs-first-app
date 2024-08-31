@@ -20,4 +20,10 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'linebreak-style': process.platform === 'win32' ? [0, 'windows'] : [0, 'unix'],
   },
+  'prettier/prettier': [
+    'error',
+    {
+      endOfLine: 'auto',
+    },
+  ],
 };
