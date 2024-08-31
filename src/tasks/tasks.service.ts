@@ -1,4 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import type { CreateTaskDto } from './dto/create-task.dto';
+import type { UpdateTaskDto } from './dto/update-task.dto';
 
 export interface Task {
   id: number;
@@ -24,7 +26,7 @@ export class TasksService {
     return taskFound;
   }
 
-  createTask(task: any) {
+  createTask(task: CreateTaskDto) {
     this.tasks.push({
       ...task,
       id: this.tasks.length + 1,
@@ -32,8 +34,8 @@ export class TasksService {
     return task;
   }
 
-  updateTask() {
-    return 'Task updated';
+  updateTask(task: UpdateTaskDto) {
+    return task;
   }
 
   deleteTask() {
