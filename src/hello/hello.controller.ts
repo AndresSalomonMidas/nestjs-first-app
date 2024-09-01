@@ -1,6 +1,7 @@
-import { Controller, Get, HttpCode, Param, ParseBoolPipe, ParseIntPipe, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, ParseBoolPipe, ParseIntPipe, Query, Req, Res, UseGuards } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { ValidateUserPipe } from './pipes/validate-user/validate-user.pipe';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 // This controller is used directly in main module
 @Controller()
@@ -34,6 +35,7 @@ export class HelloController {
   }
 
   @Get('greet')
+  @UseGuards(AuthGuard)
   greet(@Query(ValidateUserPipe) query: { name: string; age: number }) {
     // ? ValidateUserPipe transform age to number
     // console.log(typeof query.age); // 'number'
