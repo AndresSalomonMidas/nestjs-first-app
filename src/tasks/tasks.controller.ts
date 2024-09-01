@@ -2,8 +2,10 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UsePipes
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('/tasks')
+@ApiTags('tasks')
 export class TasksController {
   tasksService: TasksService;
 
@@ -12,6 +14,10 @@ export class TasksController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all tasks' })
+  @ApiResponse({ status: 200, description: 'Return all tasks' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
   getAllTasks(@Query() query: any) {
     return this.tasksService.getTasks();
   }
@@ -22,6 +28,7 @@ export class TasksController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create a new task' })
   @UsePipes(new ValidationPipe())
   createTask(@Body() body: CreateTaskDto) {
     return this.tasksService.createTask(body);
